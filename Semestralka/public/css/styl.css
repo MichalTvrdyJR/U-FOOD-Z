@@ -1,0 +1,227 @@
+#page-body {
+    background-image: url("../images/bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100%;
+}
+
+{/*#header {
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65));
+}*/}
+
+
+#logo {
+    width: 120px;
+}
+
+#obrazok-hlavna {
+    width: 90%;
+    height: 90%;
+}
+
+#decor {
+    width: 70%;
+}
+
+.light-text {
+    color: #ffffff !important;
+}
+
+.dark-text {
+    color: #000000 !important;
+}
+
+.dropdown-item:hover {
+    color: black !important;
+}
+
+.about-us {
+    font-family: "Bookman Old Style";
+    font-size: 15px;
+    position: relative;
+    text-align: center;
+    top: 1vh;
+}
+
+h1 {
+    font-family: "Bookman Old Style";
+    font-size: 30px;
+    position: relative;
+    top: 0vh;
+    bottom: 0vh;
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.button-buy {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #1f69b2;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button-login {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button-login:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.button-buy:hover {
+    background-color: #1f69b2;
+    color: #ffffff;
+}
+
+.food-type {
+    margin: auto;
+    position: relative;
+    float: bottom;
+    width: 70%;
+    background-color: transparent !important;
+    box-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+    offset-position: 20px;
+    padding: 2px;
+}
+
+.products-img {
+    float: left;
+    padding: 2px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    height:auto;
+}
+
+.products-title {
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+h2 {
+    font-family: "Bookman Old Style";
+    font-size: 20px !important;
+}
+
+.menu {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-colors {
+    color: #000000;
+}
+
+#mainNavigation a {
+    font-family: "Bookman Old Style", sans-serif;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.fa-reorder {
+    font-size:15px !important;
+}
+
+.fa-reorder:hover {
+    color: white;
+}
+
+.menu-colors {
+    color: black;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+
+.nav-item a:hover {
+    color:#ffffff
+}
+
+.nav-item{
+    min-width:12vw;
+}
+
+#mainNavigation {
+    padding-bottom:20px;
+}
+{/*background: -moz-linear-gradient(top,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );*/}
+
+#navbarNavDropdown.collapsing .navbar-nav,
+#navbarNavDropdown.show .navbar-nav{
+    padding:12px;
+}
+
+.my-div {
+    border-bottom-style: double;
+    border-bottom-color: black;
+}
+
+.ed-buttons {
+    float: right;
+    margin: 3px;
+}
+
+.card-title {
+    color: white;
+    font-size: 25px;
+    text-underline: transparent;
+    text-shadow: 2px 2px 3px blue;
+    pointer-events: none;
+    padding: 3px;
+}
+
+.text-dm {
+    color: black;
+    text-shadow: 2px 2px 3px red;
+    font-size: 25px;
+}
+
+.zlozenie {
+    color: white;
+    font-size: 18px;
+    text-shadow: 2px 2px 3px red;
+    padding: 25px;
+}
+
+.cena {
+    color: black;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.denne-menu {
+
+}
