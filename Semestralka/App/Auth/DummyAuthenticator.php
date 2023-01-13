@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Core\IAuthenticator;
+use App\Models\Profiles;
 
 /**
  * Class DummyAuthenticator
@@ -11,9 +12,9 @@ use App\Core\IAuthenticator;
  */
 class DummyAuthenticator implements IAuthenticator
 {
-    const LOGIN = "admin";
-    const PASSWORD_HASH = '$2y$10$GRA8D27bvZZw8b85CAwRee9NH5nj4CQA6PDFMc90pN9Wi4VAWq3yq'; // admin
-    const USERNAME = "Admin";
+    //const LOGIN = "admin";
+    //const PASSWORD_HASH = '$2y$10$GRA8D27bvZZw8b85CAwRee9NH5nj4CQA6PDFMc90pN9Wi4VAWq3yq'; // admin
+    //const USERNAME = "Admin";
 
     /**
      * DummyAuthenticator constructor
@@ -30,14 +31,19 @@ class DummyAuthenticator implements IAuthenticator
      * @return bool
      * @throws \Exception
      */
-    function login($login, $password): bool
+    function login($email, $password): bool
     {
-        if ($login == self::LOGIN && password_verify($password, self::PASSWORD_HASH)) {
-            $_SESSION['user'] = self::USERNAME;
-            return true;
-        } else {
-            return false;
+        $data = Profiles::getAll();
+        foreach ($data as $column) {
+            if ($email == $column->getEmail() && $password == $column->getPassword()) {
+            //if ($login == $column->getEmail() && password_verify($password, $column->getPassword())) {
+                $_SESSION['user'] = $column->getName();
+                return true;
+            } else {
+                return false;
+            }
         }
+        return false;
     }
 
     /**

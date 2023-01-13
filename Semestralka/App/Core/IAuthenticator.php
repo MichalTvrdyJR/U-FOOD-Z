@@ -23,7 +23,7 @@ interface IAuthenticator
      */
     function logout(): void;
 
-    /**
+        /**
      * Return name of a logged user
      * @return string
      */

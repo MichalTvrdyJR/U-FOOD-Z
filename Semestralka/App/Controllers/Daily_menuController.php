@@ -67,6 +67,7 @@ class Daily_menuController extends AControllerBase
     {
         $data = $this->request()->getPost();
         if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
+            $dni = Days::getAll();
             $menu = new Daily_menu();
             //$menu->setDay(date('w'));
             $menu->setDay($this->calculateDay($data["day"]));
@@ -75,6 +76,8 @@ class Daily_menuController extends AControllerBase
             $menu->setPrice($data["price"]);
             $menu->save();
             return $this->redirect("?c=daily_menu");
+        } else {
+
         }
         return $this->html(new Daily_menu());
     }

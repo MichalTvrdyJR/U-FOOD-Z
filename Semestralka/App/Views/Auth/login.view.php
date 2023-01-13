@@ -9,10 +9,10 @@
             <div class="text-center text-danger mb-3">
                 <?= @$data['message'] ?>
             </div>
-            <p class="dark-text">Please enter your login and password</p>
+            <p class="dark-text">Please enter your email and password</p>
             <div>
-                <input name="login" type="text" id="login" class="form-control" required autofocus/>
-                <label class="form-label" for="typeLogin">Enter your login</label>
+                <input name="email" type="text" id="email" class="form-control" required autofocus/>
+                <label class="form-label" for="typeEmail">Enter your email</label>
             </div>
             <div>
                 <input type="password" id="password" name="password"  class="form-control" required/>
