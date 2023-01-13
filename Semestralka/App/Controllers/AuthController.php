@@ -31,7 +31,7 @@ class AuthController extends AControllerBase
     {
         $formData = $this->app->getRequest()->getPost();
         $logged = null;
-        if (isset($formData['submit'])) {
+        if (isset($formData['submit']) && isset($formData['email']) && isset($formData['password'])) {
             $logged = $this->app->getAuth()->login($formData["email"], $formData["password"]);
             if ($logged) {
                 return $this->redirect('?c=home');
@@ -60,7 +60,15 @@ class AuthController extends AControllerBase
 
         $formData = $this->app->getRequest()->getPost();
         $logged = null;
-        if (isset($formData['create'])) {
+        if (isset($formData['create']) && isset($formData['name']) && isset($formData['surname']) && isset($formData['email']) && isset($formData['password']) && isset($formData['check-password']) && isset($formData['phone'])) {
+            if (!strpos($formData["email"], "@") || !strpos($formData["email"], ".")) {
+                $data = ['message' => 'Email je zle zadaný'];
+                return $this->html($data);
+            }
+            if (!preg_match('/^[0-9]{10}+$/', $formData["phone"])) {
+                $data = ['message' => 'Telefón je zle zadaný'];
+                return $this->html($data);
+            }
             $old_data = Profiles::getAll();
             foreach ($old_data as $column) {
                 if ($column->getEmail() == $formData["email"]) {

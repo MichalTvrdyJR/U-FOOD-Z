@@ -39,8 +39,6 @@ class DummyAuthenticator implements IAuthenticator
             //if ($login == $column->getEmail() && password_verify($password, $column->getPassword())) {
                 $_SESSION['user'] = $column->getName();
                 return true;
-            } else {
-                return false;
             }
         }
         return false;

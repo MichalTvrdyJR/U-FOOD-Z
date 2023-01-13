@@ -5,6 +5,7 @@
 <div class="container">
     <div class="card card-colors card-signin">
         <form class="card-body p-5 text-center form-signin" method="post" action="<?= \App\Config\Configuration::LOGIN_URL ?>">
+            <h2 class="text-uppercase">__________________________</h2>
             <h2 class="text-uppercase">Login</h2>
             <div class="text-center text-danger mb-3">
                 <?= @$data['message'] ?>
