@@ -6,40 +6,49 @@ use App\Core\Model;
 
 class Cart extends Model
 {
-    protected int $id_profile;
-    protected int $id_food;
+    protected int $id;
+    protected int $profile;
+    protected int $food;
     protected int $count = 0;
 
     /**
      * @return int
      */
-    public function getId_Profile(): int
+    public function getId(): int
     {
-        return $this->id_profile;
+        return $this->id;
     }
 
     /**
      * @return int
      */
-    public function getId_Food(): int
+    public function getProfile(): int
     {
-        return $this->id_food;
+        return $this->profile;
     }
 
     /**
-     * @param int $id_profile
+     * @return int
      */
-    public function setId_Profile(int $id_profile): void
+    public function getFood(): int
     {
-        $this->id_profile = $id_profile;
+        return $this->food;
     }
 
     /**
-     * @param int $id_food
+     * @param int $profile
      */
-    public function setId_Food(int $id_food): void
+    public function setProfile(int $profile): void
     {
-        $this->id_food = $id_food;
+        $this->profile = $profile;
+    }
+
+    /**
+     * @param int $food
+     */
+    public function setFood(int $food): void
+    {
+        $this->food = $food;
     }
 
     /**
