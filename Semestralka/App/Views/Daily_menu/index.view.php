@@ -2,16 +2,31 @@
 /* @var Array $data */
 /** @var \App\Core\IAuthenticator $auth */
 use App\Controllers\Daily_menuController;
+/*** @var App\Models\Days $days */;
 ?>
 
 <div class="column">
     <div class="center-text">
         <span class="text-dm" ><?= @$data['message'] ?></span>
     </div>
-    <?php   $cislo = 1;
-            unset($data['message']);
-            foreach ($data as $x => $value) {
+    <?php   unset($data['message']);
+            if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {
+                $days = \App\Models\Days::getAll();
+            } else {
+                $days = \App\Models\Days::getOne(date('w'));
+            }
+            foreach ($days as $day) {
+                $cislo = 1;
+                $isUsed = false;
+                foreach ($data as $x => $value) {
+                    if($day->getId() == $value->getDay()) {
+                        if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin" && $isUsed === false) {
             ?>
+                            <div class="center-text">
+                                <span class="text-dm" ><?=$day->getName()?></span>
+                            </div>
+                  <?php $isUsed = true;
+                        }?>
         <div class="card my-3 food-type">
             <div class="card-body">
                 <span class="card-title">Menu <?=$cislo ?> : </span>
@@ -26,7 +41,9 @@ use App\Controllers\Daily_menuController;
                 <?php } ?>
             </div>
         </div>
-    <?php   $cislo = $cislo + 1;
+    <?php           $cislo = $cislo + 1;
+                    }
+                }
             }?>
     <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
         <div class="card my-3 food-type">

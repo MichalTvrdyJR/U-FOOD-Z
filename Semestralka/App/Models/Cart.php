@@ -8,6 +8,7 @@ class Cart extends Model
 {
     protected int $id_profile;
     protected int $id_food;
+    protected int $count = 0;
 
     /**
      * @return int
@@ -39,5 +40,21 @@ class Cart extends Model
     public function setId_Food(int $id_food): void
     {
         $this->id_food = $id_food;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
+    /**
+     * @param int $count
+     */
+    public function setCount(int $count): void
+    {
+        $this->count = $count;
     }
 }

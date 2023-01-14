@@ -70,7 +70,7 @@ class Daily_menuController extends AControllerBase
         $data = $this->request()->getPost();
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
             if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-                if ($data["price"] <= 0) {
+                if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] <= 0) {
                     $message = "Zle zadaná suma";
                 } else {
                     $dayID = $this->validDay($data["day"]);
@@ -88,7 +88,7 @@ class Daily_menuController extends AControllerBase
                 }
             }
         } else {
-            $message = "Nie ste autorizovaný meniť veci";
+            $message = "Nie ste autorizovaný pridávať veci";
         }
         $menu = new Daily_menu();
         $data = ['nadpis' => "Pridanie", 'message' => $message, 'name' => $menu->getName(), 'day' => "", 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
@@ -107,7 +107,7 @@ class Daily_menuController extends AControllerBase
 
             if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
                 if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-                    if ($data["price"] <= 0) {
+                    if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] > 0) {
                         $message = "Zle zadaná suma";
                     } else {
                         $dayID = $this->validDay($data["day"]);
@@ -137,7 +137,9 @@ class Daily_menuController extends AControllerBase
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
             $menu_id = $this->request()->getValue("id");
             $menu = Daily_menu::getOne($menu_id);
-            $menu?->delete();
+            if ($menu != null) {
+                $menu->delete();
+            }
         }
         return $this->redirect("?c=daily_menu");
     }

@@ -47,7 +47,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="float:left;">
                             <li><a class="dropdown-item" href="?c=profile"><?=$auth->getLoggedUserName() == 'Admin' ? 'Users' : 'Profile' ?></a></li>
-                            <li><a class="dropdown-item" href="?c=auth&a=logout">Log out</a></li>
+                            <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#Logout">Log out</a></li>
                         </ul>
                         <?php } else { ?>
                         <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,6 +67,20 @@
 <div class="container-fluid mt-3">
     <div class="web-content">
         <?= $contentHTML ?>
+    </div>
+</div>
+<div class="modal fade" id="Logout">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Naozaj sa chcete odhlásiť?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-primary" href="?c=auth&a=logout"">Odhlásiť</a>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Zavrieť</button>
+            </div>
+        </div>
     </div>
 </div>
 </body>

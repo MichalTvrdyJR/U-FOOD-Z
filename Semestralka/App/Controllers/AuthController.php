@@ -49,8 +49,8 @@ class AuthController extends AControllerBase
     public function logout(): Response
     {
         $this->app->getAuth()->logout();
-        return $this->html();
-        //return $this->redirect('?c=home');
+        //return $this->html();
+        return $this->redirect('?c=home');
     }
 
     public function registration() : Response

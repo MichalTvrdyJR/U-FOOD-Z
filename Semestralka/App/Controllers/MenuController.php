@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
-use App\Models\Food;
 use App\Models\Food_type;
 
 class MenuController extends AControllerBase
@@ -45,10 +44,12 @@ class MenuController extends AControllerBase
             return $this->redirect("?c=menu");
         }
 
-        if (isset($data["type"])) {
-            $food_type->setType($data["type"]);
-            $food_type->save();
-            return $this->redirect("?c=menu");
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            if (isset($data["type"])) {
+                $food_type->setType($data["type"]);
+                $food_type->save();
+                return $this->redirect("?c=menu");
+            }
         }
 
         return $this->html($food_type, "add");
@@ -56,10 +57,12 @@ class MenuController extends AControllerBase
 
     public function delete(): Response
     {
-        $food_type_id = $this->request()->getValue("id");
-        $food_type = Food_type::getOne($food_type_id);
-        if ($food_type != null) {
-            $food_type->delete();
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            $food_type_id = $this->request()->getValue("id");
+            $food_type = Food_type::getOne($food_type_id);
+            if ($food_type != null) {
+                $food_type->delete();
+            }
         }
         return  $this->redirect("?c=menu");
     }

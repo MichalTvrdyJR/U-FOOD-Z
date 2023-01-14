@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-md-5 text-center">
             <div>
                 <h1>Underground food Žilina<h1>
@@ -20,13 +20,13 @@
                 course, upon agreement, catering is also available, as well as the
                 possibility of ordering our cook to your place for a celebration or similar.
                 We also have various discounts, promotions, or even prizes for our members.
-                That's why it's worth <a href="registration.html">registering</a>. If you still don't believe that we are the
+                That's why it's worth <a href="?c=auth&a=registration">registering</a>. If you still don't believe that we are the
                 best in Žilina, come and taste it, and you will see that you will never go
                 anywhere else.
             </p>
         </div>
-        <div class="col-md-7 text-center">
-            <img id="obrazok-hlavna" src="public/images/restauracia.jpg" class="invert" alt="Obrazok">
+        <div class="col-md-7">
+            <img class="img-fluid" id="obrazok-hlavna" src="public/images/restauracia.jpg" alt="U-FOOD_Z">
         </div>
     </div>
     <div class="row mt-3">

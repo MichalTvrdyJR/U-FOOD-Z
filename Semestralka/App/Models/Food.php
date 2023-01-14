@@ -6,11 +6,11 @@ use App\Core\Model;
 
 class Food extends Model
 {
-    protected int $food_id;
-    protected string $food_name = "";
-    protected int $type_id;
+    protected int $id;
+    protected string $name = "";
+    protected int $type;
     protected string $ingredients = "";
-    protected float $price;
+    protected float $price = 0;
 
     /**
      * @return float
@@ -31,49 +31,41 @@ class Food extends Model
     /**
      * @return int
      */
-    public function getFoodId(): int
+    public function getId(): int
     {
-        return $this->food_id;
-    }
-
-    /**
-     * @param int $food_id
-     */
-    public function setFoodId(int $food_id): void
-    {
-        $this->food_id = $food_id;
+        return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getFoodName(): string
+    public function getName(): string
     {
-        return $this->food_name;
+        return $this->name;
     }
 
     /**
-     * @param string $food_name
+     * @param string $name
      */
-    public function setFoodName(string $food_name): void
+    public function setName(string $name): void
     {
-        $this->food_name = $food_name;
+        $this->name = $name;
     }
 
     /**
      * @return int
      */
-    public function getTypeId(): int
+    public function getType(): int
     {
-        return $this->type_id;
+        return $this->type;
     }
 
     /**
-     * @param int $type_id
+     * @param int $type
      */
-    public function setTypeId(int $type_id): void
+    public function setType(int $type): void
     {
-        $this->type_id = $type_id;
+        $this->type = $type;
     }
 
     /**
