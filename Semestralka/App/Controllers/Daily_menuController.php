@@ -7,6 +7,8 @@ use App\Core\Responses\Response;
 use App\Models\Daily_menu;
 use App\Models\Days;
 use App\Models\Time_interval;
+use App\Core\IAuthenticator;
+
 
 class Daily_menuController extends AControllerBase
 {
@@ -20,70 +22,82 @@ class Daily_menuController extends AControllerBase
 
     public function index(): Response
     {
-        //if (!Daily_menuController::$canShowAll) {
-        //    $array = [];
-       //     $type = Daily_menu::getAll();
-       //     foreach ($type as $prvok) {
-       //         if ($prvok->getDay() == date('w')) {
-       //            $array[] = $prvok;
-       //         }
-       //     }
-        //} else {
-        //    $array = Daily_menu::getAll();
-        //}
-        $array = Daily_menu::getAll();
-        return $this->html($array);
+        $data = Daily_menu::getAll();
+        $n_data = ['message' => ""];
+        //$n_data = ['message' => "Dnešné menu na deň " + Days::getOne(date('w')->getName()];
+        //if ($column->getDay() == date('w') || ($auth->isLogged() && $auth->getLoggedUserName() == "Admin")) {
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            foreach ($data as $column) {
+                array_push($n_data, $column);
+            }
+        } else {
+            $cislo = 0;
+            foreach ($data as $column) {
+                if (self::isTimeInInterval(floatval(date('H.i')))) {
+                    if ($column->getDay() == date('w')) {
+                        array_push($n_data, $column);
+                        $cislo = $cislo + 1;
+                    }
+                    if ($cislo != 0){
+                        $n_data['message'] = "Ponuka na dnešný deň";//+ Days::getOne(date('w'))->getName();
+                    } else {
+                        //$n_data
+                        $n_data['message'] = "Bohužiaľ pre tento deň nie je k dispozícií žiadna ponuka";
+                    }
+                } else {
+                    $n_data['message'] = "Bohužiaľ ponuka denných menu nie je v tomto čase k dispozícií";
+                }
+            }
+            //$data = $n_data;
+        }
+
+        return $this->html($n_data);
     }
 
-    private function calculateDay(string $day): int {
-        $cislo = 0;
-        switch ($day) {
-            case "Pondelok":
-                $cislo = 1;
-                break;
-            case "Utorok":
-                $cislo = 2;
-                break;
-            case "Streda":
-                $cislo = 3;
-                break;
-            case "Štvrtok":
-                $cislo = 4;
-                break;
-            case "Piatok":
-                $cislo = 5;
-                break;
-            case "Sobota":
-                $cislo = 6;
-                break;
-            default:
-                $cislo = 0;
-                break;
+    private function validDay(string $day): int {
+        $data = Days::getAll();
+        foreach ($data as $column) {
+            if ($column->getName() == $day) {
+                return $column->getId();
+            }
         }
-        return $cislo;
+        return -1;
     }
 
     public function add(): Response
     {
+        $message = "";
         $data = $this->request()->getPost();
-        if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-            $dni = Days::getAll();
-            $menu = new Daily_menu();
-            //$menu->setDay(date('w'));
-            $menu->setDay($this->calculateDay($data["day"]));
-            $menu->setName($data["name"]);
-            $menu->setIngredients($data["ingredients"]);
-            $menu->setPrice($data["price"]);
-            $menu->save();
-            return $this->redirect("?c=daily_menu");
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
+                if ($data["price"] <= 0) {
+                    $message = "Zle zadaná suma";
+                } else {
+                    $dayID = $this->validDay($data["day"]);
+                    if ($dayID == -1) {
+                        $message = "Zle zadaný deň";
+                    } else {
+                        $menu = new Daily_menu();
+                        $menu->setName($data["name"]);
+                        $menu->setDay($dayID);
+                        $menu->setIngredients($data["ingredients"]);
+                        $menu->setPrice($data["price"]);
+                        $menu->save();
+                        return $this->redirect("?c=daily_menu");
+                    }
+                }
+            }
         } else {
-
+            $message = "Nie ste autorizovaný meniť veci";
         }
-        return $this->html(new Daily_menu());
+        $menu = new Daily_menu();
+        $data = ['nadpis' => "Pridanie", 'message' => $message, 'name' => $menu->getName(), 'day' => "", 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
+        return $this->html($data);
     }
 
     public function edit(): Response
         {
+            $message = "";
             $menu_id = $this->request()->getValue("id");
             $menu = Daily_menu::getOne($menu_id);
             $data = $this->request()->getPost();
@@ -91,24 +105,41 @@ class Daily_menuController extends AControllerBase
                 return $this->redirect("?c=daily_menu");
             }
 
-            if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-                $menu->setDay($this->calculateDay($data["day"]));
-                $menu->setName($data["name"]);
-                $menu->setIngredients($data["ingredients"]);
-                $menu->setPrice($data["price"]);
-                $menu->save();
-                return $this->redirect("?c=daily_menu");
+            if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+                if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
+                    if ($data["price"] <= 0) {
+                        $message = "Zle zadaná suma";
+                    } else {
+                        $dayID = $this->validDay($data["day"]);
+                        if ($dayID == -1) {
+                            $message = "Zle zadaný deň";
+                        } else {
+                            $menu->setDay($dayID);
+                            $menu->setName($data["name"]);
+                            $menu->setIngredients($data["ingredients"]);
+                            $menu->setPrice($data["price"]);
+                            $menu->save();
+                            return $this->redirect("?c=daily_menu");
+                        }
+                    }
+                }
+            } else {
+                $message = "Nie ste autorizovaný meniť veci";
             }
 
-            return $this->html($menu, "add");
+            $den = Days::getOne($menu->getDay())->getName();
+            $data = ['nadpis' => "Edit", 'message' => $message, 'name' => $menu->getName(), 'day' => $den, 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
+            return $this->html($data, "add");
         }
 
     public function delete(): Response
     {
-        $menu_id = $this->request()->getValue("id");
-        $menu = Daily_menu::getOne($menu_id);
-        $menu?->delete();
-        return  $this->redirect("?c=daily_menu");
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            $menu_id = $this->request()->getValue("id");
+            $menu = Daily_menu::getOne($menu_id);
+            $menu?->delete();
+        }
+        return $this->redirect("?c=daily_menu");
     }
 
     public static function isTimeInInterval(float $time): bool

@@ -8,7 +8,7 @@ class Daily_menu extends Model
 {
     protected int $id;
     protected string $name = "";
-    protected string $day = "";
+    protected int $day = -1;
     protected string $ingredients = "";
     protected float $price = 0;
 
@@ -18,14 +18,6 @@ class Daily_menu extends Model
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -53,9 +45,9 @@ class Daily_menu extends Model
     }
 
     /**
-     * @param string $day
+     * @param int $day
      */
-    public function setDay(string $day): void
+    public function setDay(int $day): void
     {
         $this->day = $day;
     }

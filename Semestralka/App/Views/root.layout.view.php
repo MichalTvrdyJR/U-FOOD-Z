@@ -46,7 +46,7 @@
                             <span class="fa fa-fw fa-user"></span><?= $auth->getLoggedUserName() ?> <span class="fa fa-toggle-down"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="float:left;">
-                            <li><a class="dropdown-item" href="?c=profiles">Profile</a></li>
+                            <li><a class="dropdown-item" href="?c=profile"><?=$auth->getLoggedUserName() == 'Admin' ? 'Users' : 'Profile' ?></a></li>
                             <li><a class="dropdown-item" href="?c=auth&a=logout">Log out</a></li>
                         </ul>
                         <?php } else { ?>

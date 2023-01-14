@@ -3,7 +3,7 @@
 namespace App\Auth;
 
 use App\Core\IAuthenticator;
-use App\Models\Profiles;
+use App\Models\Profile;
 
 /**
  * Class DummyAuthenticator
@@ -33,11 +33,12 @@ class DummyAuthenticator implements IAuthenticator
      */
     function login($email, $password): bool
     {
-        $data = Profiles::getAll();
+        $data = Profile::getAll();
         foreach ($data as $column) {
-            if ($email == $column->getEmail() && $password == $column->getPassword()) {
-            //if ($login == $column->getEmail() && password_verify($password, $column->getPassword())) {
+            //if ($email == $column->getEmail() && $password == $column->getPassword()) {
+            if ($email == $column->getEmail() && password_verify($password, $column->getPassword())) {
                 $_SESSION['user'] = $column->getName();
+                $_SESSION['id'] = $column->getId();
                 return true;
             }
         }
@@ -51,7 +52,10 @@ class DummyAuthenticator implements IAuthenticator
     {
         if (isset($_SESSION["user"])) {
             unset($_SESSION["user"]);
-            session_destroy();
+            if (isset($_SESSION["id"])) {
+                unset($_SESSION["id"]);
+                session_destroy();
+            }
         }
     }
 
@@ -80,7 +84,7 @@ class DummyAuthenticator implements IAuthenticator
      */
     function isLogged(): bool
     {
-        return isset($_SESSION['user']) && $_SESSION['user'] != null;
+        return isset($_SESSION['user']) && $_SESSION['user'] != null && isset($_SESSION['id']) && $_SESSION['id'] != null;
     }
 
     /**
@@ -89,6 +93,6 @@ class DummyAuthenticator implements IAuthenticator
      */
     function getLoggedUserId(): mixed
     {
-        return $_SESSION['user'];
+        return $_SESSION['id'];
     }
 }

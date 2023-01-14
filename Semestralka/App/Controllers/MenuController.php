@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Food;
 use App\Models\Food_type;
 
 class MenuController extends AControllerBase
@@ -16,9 +17,10 @@ class MenuController extends AControllerBase
 
     public function index(): Response
     {
-        $type = Food_type::getAll();
+        //$data = Food::getAll();
+        $data = Food_type::getAll();
 
-        return $this->html($type);
+        return $this->html($data);
     }
 
     public function add(): Response

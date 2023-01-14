@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Config\Configuration;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
-use App\Models\Profiles;
+use App\Models\Profile;
 
 /**
  * Class AuthController
@@ -69,7 +69,7 @@ class AuthController extends AControllerBase
                 $data = ['message' => 'Telefón je zle zadaný'];
                 return $this->html($data);
             }
-            $old_data = Profiles::getAll();
+            $old_data = Profile::getAll();
             foreach ($old_data as $column) {
                 if ($column->getEmail() == $formData["email"]) {
                     $data = ['message' => 'Účet už existuje!'];
@@ -77,12 +77,12 @@ class AuthController extends AControllerBase
                 }
             }
             if ($formData["password"] == $formData["check-password"]) {
-                $profile = new Profiles();
+                $profile = new Profile();
                 $profile->setName($formData["name"]);
                 $profile->setSurname($formData["surname"]);
                 $profile->setEmail($formData["email"]);
-                //$profile->setPassword(password_hash($formData["password"], PASSWORD_DEFAULT));
-                $profile->setPassword($formData["password"]);
+                $profile->setPassword(password_hash($formData["password"], PASSWORD_DEFAULT));
+                //$profile->setPassword($formData["password"]);
                 $profile->setPhone($formData["phone"]);
                 $profile->save();
                 $logged = $this->app->getAuth()->login($formData["email"], $formData["password"]);

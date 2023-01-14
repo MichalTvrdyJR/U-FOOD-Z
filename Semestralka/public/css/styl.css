@@ -216,6 +216,21 @@ h2 {
     padding: 25px;
 }
 
+.profile-info {
+    color: white;
+    font-size: 18px;
+    text-shadow: 2px 2px 3px red;
+    padding: 5px;
+}
+
+.icon {
+    color: white;
+    font-size: 18px;
+    text-shadow: 2px 2px 3px red;
+    padding-left: 25px;
+    padding-right: 5px;
+}
+
 .cena {
     color: black;
     font-size: 30px;
