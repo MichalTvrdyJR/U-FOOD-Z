@@ -96,41 +96,68 @@ class Daily_menuController extends AControllerBase
     }
 
     public function edit(): Response
-        {
-            $message = "";
-            $menu_id = $this->request()->getValue("id");
-            $menu = Daily_menu::getOne($menu_id);
-            $data = $this->request()->getPost();
-            if ($menu == null) {
-                return $this->redirect("?c=daily_menu");
-            }
+    {
+        $message = "";
+        $menu_id = $this->request()->getValue("id");
+        $menu = Daily_menu::getOne($menu_id);
+        $data = $this->request()->getPost();
+        if ($menu == null) {
+            return $this->redirect("?c=daily_menu");
+        }
 
-            if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
-                if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-                    if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] > 0) {
-                        $message = "Zle zadaná suma";
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
+                if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] > 0) {
+                    $message = "Zle zadaná suma";
+                } else {
+                    $dayID = $this->validDay($data["day"]);
+                    if ($dayID == -1) {
+                        $message = "Zle zadaný deň";
                     } else {
-                        $dayID = $this->validDay($data["day"]);
-                        if ($dayID == -1) {
-                            $message = "Zle zadaný deň";
-                        } else {
-                            $menu->setDay($dayID);
-                            $menu->setName($data["name"]);
-                            $menu->setIngredients($data["ingredients"]);
-                            $menu->setPrice($data["price"]);
-                            $menu->save();
-                            return $this->redirect("?c=daily_menu");
-                        }
+                        $menu->setDay($dayID);
+                        $menu->setName($data["name"]);
+                        $menu->setIngredients($data["ingredients"]);
+                        $menu->setPrice($data["price"]);
+                        $menu->save();
+                        return $this->redirect("?c=daily_menu");
                     }
                 }
-            } else {
-                $message = "Nie ste autorizovaný meniť veci";
             }
-
-            $den = Days::getOne($menu->getDay())->getName();
-            $data = ['nadpis' => "Edit", 'message' => $message, 'name' => $menu->getName(), 'day' => $den, 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
-            return $this->html($data, "add");
+        } else {
+            $message = "Nie ste autorizovaný meniť veci";
         }
+
+        $den = Days::getOne($menu->getDay())->getName();
+        $data = ['nadpis' => "Edit", 'message' => $message, 'name' => $menu->getName(), 'day' => $den, 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
+        return $this->html($data, "add");
+    }
+
+    public function edit_time(): Response
+    {
+        $time_od = Time_interval::getOne(1);
+        $time_do = Time_interval::getOne(2);
+        $n_data = ['message' => "", 'od' => $time_od->getTime(), 'do' => $time_do->getTime()];
+        $data = $this->request()->getPost();
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
+            if (isset($data["od"]) && isset($data["do"])) {
+                if (filter_var($data["od"], FILTER_VALIDATE_FLOAT) === false || filter_var($data["do"], FILTER_VALIDATE_FLOAT) === false) {
+                    $n_data['message'] = "Zle zadané čísla";
+                } else {
+                    if ($data["od"] > 0 && $data["od"] < $data["do"] && $data["do"] < 24) {
+                        $time_od->setTime($data["od"]);
+                        $time_od->save();
+                        $time_do->setTime($data["do"]);
+                        $time_do->save();
+                        $n_data['od'] = $time_od->getTime();
+                        $n_data['do'] = $time_do->getTime();
+                    } else {
+                        $n_data['message'] = "Neplatná hodnota čísel";
+                    }
+                }
+            }
+        }
+        return $this->html($n_data, "edit_time");
+    }
 
     public function delete(): Response
     {
@@ -152,15 +179,6 @@ class Daily_menuController extends AControllerBase
             return true;
         } else {
             return false;
-        }
-    }
-
-    public static function showAll(string $user): void
-    {
-        if ($user == "Admin") {
-            Daily_menuController::$canShowAll = true;
-        } else {
-            Daily_menuController::$canShowAll = false;
         }
     }
 }

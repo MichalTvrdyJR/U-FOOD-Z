@@ -7,6 +7,10 @@ use App\Controllers\Daily_menuController;
 
 <div class="column">
     <div class="center-text">
+    <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {?>
+        <span class="text-dm" >Denné menu sú k dispozícií medzi <?= \App\Models\Time_interval::getOne(1)->getTime()?> a <?= \App\Models\Time_interval::getOne(2)->getTime()?> hodinou</span>
+        <a href="?c=daily_menu&a=edit_time" class="btn btn-warning ed-buttons">Edit</a>
+    <?php }?>
         <span class="text-dm" ><?= @$data['message'] ?></span>
     </div>
     <?php   unset($data['message']);

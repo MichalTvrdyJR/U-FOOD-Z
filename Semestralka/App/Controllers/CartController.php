@@ -26,7 +26,7 @@ class CartController extends AControllerBase
         $n_data = ['message' => ""];
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
             $n_data['message'] = "For your account is cart not able";
-        } else if ($$this->app->getAuth()->isLogged()){
+        } else if ($this->app->getAuth()->isLogged()){
             $cislo = 0;
             foreach ($data as $column) {
                 if ($column->getProfile() == $this->app->getAuth()->getLoggedUserId()) {
@@ -49,76 +49,72 @@ class CartController extends AControllerBase
         $id = explode("-", $this->request()->getValue("id"));
         $food_type_id = $id[0];
         $food_id = $id[1];
+        $url = "?c=food&a=index&id=" . $food_type_id;
         $food = Food::getOne($food_id);
         if ($food == null) {
-            $url = "?c=food&a=index&id=" . $food_type_id;
             return $this->redirect($url);
         }
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() != "Admin") {
+            $found = false;
             $data = Cart::getAll();
             foreach ($data as $column) {
                 if ($column->getProfile() == $this->app->getAuth()->getLoggedUserId() && $column->getFood() ==$food_id) {
                     $column->setCount($column->getCount() + 1);
-                } else {
-                    $cart_item = new Cart();
-                    $cart_item->setProfile($this->app->getAuth()->getLoggedUserId());
-                    $cart_item->setFood($food_id);
-                    $cart_item->setCount(1);
-                    $cart_item->save();
+                    $column->save();
+                    $found = true;
                 }
+            }
+            if (!$found) {
+                $cart_item = new Cart();
+                $cart_item->setProfile($this->app->getAuth()->getLoggedUserId());
+                $cart_item->setFood($food_id);
+                $cart_item->setCount(1);
+                $cart_item->save();
             }
         }
 
-        $url = "?c=food&a=index&id=" . $food_type_id;
         return $this->redirect($url);
     }
 
-    public function edit(): Response
+    public function add_cart(): Response
     {
-        $message = "";
-        $menu_id = $this->request()->getValue("id");
-        $menu = Daily_menu::getOne($menu_id);
-        $data = $this->request()->getPost();
-        if ($menu == null) {
-            return $this->redirect("?c=daily_menu");
+        $cart = Cart::getOne($this->request()->getValue("id"));
+        $food_id = $cart->getFood();
+        $url = "?c=cart";
+        $food = Food::getOne($food_id);
+        if ($food == null) {
+            return $this->redirect($url);
         }
-
-        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
-            if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-                if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] > 0) {
-                    $message = "Zle zadaná suma";
-                } else {
-                    $dayID = $this->validDay($data["day"]);
-                    if ($dayID == -1) {
-                        $message = "Zle zadaný deň";
-                    } else {
-                        $menu->setDay($dayID);
-                        $menu->setName($data["name"]);
-                        $menu->setIngredients($data["ingredients"]);
-                        $menu->setPrice($data["price"]);
-                        $menu->save();
-                        return $this->redirect("?c=daily_menu");
-                    }
-                }
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() != "Admin") {
+            if ($cart->getProfile() == $this->app->getAuth()->getLoggedUserId()) {
+                    $cart->setCount($cart->getCount() + 1);
+                    $cart->save();
             }
-        } else {
-            $message = "Nie ste autorizovaný meniť veci";
         }
 
-        $den = Days::getOne($menu->getDay())->getName();
-        $data = ['nadpis' => "Edit", 'message' => $message, 'name' => $menu->getName(), 'day' => $den, 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
-        return $this->html($data, "add");
+        return $this->redirect($url);
     }
 
-    public function delete(): Response
+    public function delete_cart(): Response
     {
-        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
-            $menu_id = $this->request()->getValue("id");
-            $menu = Daily_menu::getOne($menu_id);
-            if ($menu != null) {
-                $menu->delete();
+        $cart = Cart::getOne($this->request()->getValue("id"));
+        $food_id = $cart->getFood();
+        $url = "?c=cart";
+        $food = Food::getOne($food_id);
+        if ($food == null) {
+            return $this->redirect($url);
+        }
+        if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() != "Admin") {
+            if ($cart->getProfile() == $this->app->getAuth()->getLoggedUserId()) {
+                if ($cart->getCount() > 1) {
+                    $cart->setCount($cart->getCount() - 1);
+                    $cart->save();
+                } else {
+                    $cart->delete();
+                };
             }
         }
-        return $this->redirect("?c=daily_menu");
+
+        return $this->redirect($url);
     }
 }

@@ -17,6 +17,9 @@
                         <span class="card-title"><?=$cislo ?> : </span>
                         <span class="card-title"><?=$value->getName() ?></span>
                         <span class="cena"><?=$value->getPrice() ?>€</span>
+                    <?php if ($auth->isLogged() && $auth->getLoggedUserName() != "Admin") {?>
+                        <a href="?c=cart&a=add&id=<?=$value->getType() . '-' . $value->getId()?>" class="fa fa-shopping-cart ed-buttons" style="font-size:30px"></a>
+                        <?php }?>
                     </div>
                     <div>
                         <span class="zlozenie">Zloženie: <?=$value->getIngredients() ?></span>

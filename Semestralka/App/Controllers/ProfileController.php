@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Cart;
 use App\Models\Profile;
 use App\Core\IAuthenticator;
 
@@ -96,6 +97,12 @@ class ProfileController extends AControllerBase
             $profile_id = $this->request()->getValue("id");
             $profile = Profile::getOne($profile_id);
             if ($profile != null) {
+                $cart = Cart::getAll();
+                foreach ($cart as $column) {
+                    if ($column->getProfile() == $profile_id) {
+                        $column->delete();
+                    }
+                }
                 $profile->delete();
             }
             return  $this->redirect("?c=profile");

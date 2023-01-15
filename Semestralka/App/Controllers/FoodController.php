@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Cart;
 use App\Models\Food;
 use App\Models\Days;
 use App\Models\Time_interval;
@@ -107,6 +108,12 @@ class FoodController extends AControllerBase
             $food_id = $id[1];
             $food = Food::getOne($food_id);
             if ($food != null) {
+                $cart = Cart::getAll();
+                foreach ($cart as $column) {
+                    if ($column->getFood() == $food_id) {
+                        $column->delete();
+                    }
+                }
                 $food?->delete();
             }
         }

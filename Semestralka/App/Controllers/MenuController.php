@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Cart;
+use App\Models\Food;
 use App\Models\Food_type;
 
 class MenuController extends AControllerBase
@@ -61,6 +63,18 @@ class MenuController extends AControllerBase
             $food_type_id = $this->request()->getValue("id");
             $food_type = Food_type::getOne($food_type_id);
             if ($food_type != null) {
+                $cart = Cart::getAll();
+                $food = Food::getAll();
+                foreach ($food as $column_1) {
+                    if ($column_1->getType() == $food_type_id) {
+                        foreach ($cart as $column_2) {
+                            if ($column_2->getFood() == $column_1->getId()) {
+                                $column_2->delete();
+                            }
+                        }
+                        $column_1->delete();
+                    }
+                }
                 $food_type->delete();
             }
         }

@@ -8,8 +8,8 @@
         <div class="card my-3 food-type">
             <div class="card-body">
                 <span class="card-title"><?=$column->getType() ?></span>
+                <a href="?c=food&a=index&id=<?=$column->getId() ?>" class="btn btn-warning ed-buttons">Otvor</a>
                 <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
-                <a href="?c=food&a=index&id=<?=$column->getId() ?>" class="btn btn-warning ed-buttons">Edit</a>
                 <a href="?c=menu&a=edit&id=<?=$column->getId() ?>" class="btn btn-warning ed-buttons">Edit</a>
                 <a href="?c=menu&a=delete&id=<?=$column->getId() ?>" class="btn btn-danger ed-buttons">Delete</a>
                 <?php } ?>
