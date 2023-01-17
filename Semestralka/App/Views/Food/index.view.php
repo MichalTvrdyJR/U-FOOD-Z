@@ -14,10 +14,11 @@
             foreach ($data as $x => $value) { ?>
                 <div class="card my-3 food-type">
                     <div class="card-body">
+                        <img src="public/images/<?= $value->getPicture()?>" alt="daily menu" class="food_image">
                         <span class="card-title"><?=$cislo ?> : </span>
                         <span class="card-title"><?=$value->getName() ?></span>
                         <span class="cena"><?=$value->getPrice() ?>€</span>
-                    <?php if ($auth->isLogged() && $auth->getLoggedUserName() != "Admin") {?>
+                        <?php if ($auth->isLogged() && $auth->getLoggedUserName() != "Admin") {?>
                         <a href="?c=cart&a=add&id=<?=$value->getType() . '-' . $value->getId()?>" class="fa fa-shopping-cart ed-buttons" style="font-size:30px"></a>
                         <?php }?>
                     </div>

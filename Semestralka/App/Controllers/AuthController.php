@@ -84,6 +84,7 @@ class AuthController extends AControllerBase
                 $profile->setPassword(password_hash($formData["password"], PASSWORD_DEFAULT));
                 //$profile->setPassword($formData["password"]);
                 $profile->setPhone($formData["phone"]);
+                $profile->setPicture("default_profile.img");
                 $profile->save();
                 $logged = $this->app->getAuth()->login($formData["email"], $formData["password"]);
                 if ($logged) {
@@ -95,5 +96,22 @@ class AuthController extends AControllerBase
         }
         $data = ($logged === false ? ['message' => 'Nezadané všetky údaje!'] : []);
         return $this->html($data);
+    }
+
+    /**
+     * @return Response
+     * @throws \Exception
+     */
+
+    public function emailExists() : Response {
+        $email = $_REQUEST["email"];
+        $exists = Profile::getOneByEmail($email);
+        $output = false;
+
+        if ($exists) {
+            $output = true;
+        }
+
+        return $this->json($output);
     }
 }

@@ -42,3 +42,19 @@ function check_passwords(str) {
     }
 }
 
+function check_exists_email_registration(email) {
+    var xml_http = new XMLHttpRequest();
+    //"?c=auth&a=registration"
+    xml_http.open("GET", "?c=auth&a=registration&email=" + email, true);
+    xml_http.send();
+    xml_http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.response === true) {
+                document.getElementById("email_check").innerHTML = "Daný email už existuje";
+            } else {
+                document.getElementById("email_check").innerHTML = this.response;
+            }
+        }
+    }
+}
+

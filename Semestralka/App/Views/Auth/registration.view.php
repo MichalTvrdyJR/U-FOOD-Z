@@ -19,8 +19,8 @@
                 <label class="form-label" for="typeSurname">Enter your surname</label>
             </div>
             <div>
-                <input type="email" id="email" name="email"  class="form-control" required/>
-                <label class="form-label" for="typeEmail">Enter your email</label>
+                <input onkeyup="check_exists_email_registration(this.value)" type="email" id="email" name="email"  class="form-control" required/>
+                <label id="email_check" class="form-label">Zadajte email</label>
             </div>
             <div>
                 <input type="password" id="password" name="password"  class="form-control" required/>

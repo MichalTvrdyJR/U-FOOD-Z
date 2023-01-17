@@ -170,6 +170,7 @@ class Daily_menuController extends AControllerBase
                         $time_do->save();
                         $n_data['od'] = $time_od->getTime();
                         $n_data['do'] = $time_do->getTime();
+                        return $this->redirect("?c=daily_menu");
                     } else {
                         $n_data['message'] = "Neplatná hodnota čísel";
                     }

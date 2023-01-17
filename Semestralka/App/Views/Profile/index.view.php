@@ -3,7 +3,7 @@
 /** @var \App\Core\IAuthenticator $auth */
 ?>
 
-<div class="column">
+<div class="container">
     <div class="center-text">
         <span class="text-dm" ><?= @$data['message'] ?></span>
     </div>
@@ -12,27 +12,22 @@
                 unset($data['0']);
             }
             foreach ($data as $x => $value) { ?>
-        <div class="card my-3 food-type">
+    <div class="profile_containers">
+        <div class="card food-type">
             <div class="card-body">
-                <img id="profile" src="public/images/<?= $value->getPicture() ?>" class="invert" alt="Obrazok">
-            </div>
-            <div class="card-body">
-                <span class="card-title"><?=$value->getName() . ' ' . $value->getSurname() ?></span>
-                <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
-                <a href="?c=profile&a=delete&id=<?=$value->getId() ?>" class="btn btn-danger ed-buttons">Delete</a>
-                <?php }?>
+                <img id="profile" src="public/images/<?= $value->getPicture() ?>" class="profile_image" alt="profile">
+                <h2><?=$value->getName() . ' ' . $value->getSurname() ?></>
             </div>
             <?php if ($auth->isLogged() && $auth->getLoggedUserName() != "Admin") {?>
-            <div>
-                <span class="icon fa fa-envelope"></span>
-                <span class="profile-info"><?=$value->getEmail()?></span>
-            </div>
-            <div>
-                <span class="icon fa fa-phone"></span>
-                <span class="profile-info"><?=$value->getPhone()?></span>
-                <a href="?c=profile&a=edit&id=<?=$value->getId() ?>" class="btn btn-warning ed-buttons">Edit</a>
-            </div>
-            <?php }?>
+                <h4 class="profile-info">email: <?=$value->getEmail()?></h4>
+                <h4 class="profile-info">telefón: <?=$value->getPhone()?></h4>
+        <?php }?>
         </div>
+        <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
+            <a href="?c=profile&a=delete&id=<?=$value->getId() ?>" class="overlay_top profile_style">Delete</a>
+        <?php } else if ($auth->isLogged() && $auth->getLoggedUserName() != "Admin") {?>
+            <a href="?c=profile&a=edit&id=<?=$value->getId() ?>" class="overlay_top profile_style">Edit</a>
+        <?php }?>
+    </div>
     <?php } ?>
 </div>

@@ -7,11 +7,6 @@
     height: 100%;
 }
 
-{/*#header {
-    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65));
-}*/}
-
-
 #logo {
     width: 120px;
 }
@@ -43,16 +38,6 @@
     position: relative;
     text-align: center;
     top: 1vh;
-}
-
-h1 {
-    font-family: "Bookman Old Style";
-    font-size: 30px;
-    position: relative;
-    top: 0vh;
-    bottom: 0vh;
-    text-align: center;
-    font-weight: bold;
 }
 
 .container {
@@ -194,13 +179,25 @@ h2 {
     margin: 3px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 .card-title {
     color: white;
     font-size: 25px;
     text-underline: transparent;
     text-shadow: 2px 2px 3px blue;
-    pointer-events: none;
-    padding: 3px;
+    padding: 2px;
 }
 
 .text-dm {
@@ -213,7 +210,6 @@ h2 {
     color: white;
     font-size: 18px;
     text-shadow: 2px 2px 3px red;
-    padding: 25px;
 }
 
 .profile-info {
@@ -237,10 +233,231 @@ h2 {
     padding: 10px;
 }
 
-.denne-menu {
-
+h1 {
+    font-family: "Bookman Old Style" !important;
+    font-size: 25px !important;
+    text-shadow: 1px 1px 2px blue !important;
+    color: black !important;
+    position: relative;
+    top: 0vh;
+    bottom: 0vh;
+    text-align: center !important;
+    font-weight: bold;
 }
 
-.nieco {
+h2 {
+    color: white;
+    font-size: 25px !important;
+    text-underline: transparent;
+    text-shadow: 2px 2px 3px blue;
+    pointer-events: none;
+    padding: 3px;
+    font-family: "Bookman Old Style" !important;
+    position: relative;
+    text-align: center !important;
+}
 
+h3 {
+    font-family: "Bookman Old Style" !important;
+    color: white;
+    font-size: 18px !important;
+    text-shadow: 2px 2px 3px red;
+    text-align: center;
+}
+
+h4 {
+    font-family: "Bookman Old Style" !important;
+    color: black;
+    font-size: 25px !important;
+    text-shadow: 2px 2px 3px white;
+    text-align: center;
+}
+
+.zmenit_cas {
+    text-align: center !important;
+    text-shadow: 1px 1px 2px black !important;
+    color: red !important;
+    font-size: 20px;
+    font-family: "Bookman Old Style" !important;
+}
+
+.dni_text {
+    font-family: "Bookman Old Style" !important;
+    font-size: 30px !important;
+    text-shadow: 2px 2px 2px black !important;
+    color: red !important;
+    position: relative;
+    top: 0vh;
+    bottom: 0vh;
+    text-align: center !important;
+    font-weight: bold;
+    padding-left: 10%;
+}
+
+.profile_style {
+    font-family: "Bookman Old Style" !important;
+    font-size: 20px !important;
+    text-shadow: 2px 2px 2px black !important;
+    color: red !important;
+    position: relative;
+    top: 0vh;
+    bottom: 0vh;
+    text-align: center !important;
+    font-weight: bold;
+    padding-left: 10%;
+}
+
+.food_types {
+    position: relative;
+    float: bottom;
+    width: 100%;
+}
+
+.food_types_title {
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    text-shadow: 2px 2px 3px red !important;
+    color: white !important;
+}
+
+.containers {
+    position: relative;
+    width: 250px;
+    padding-top: 10px !important;
+}
+
+.profile_containers {
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    width: 500px;
+    padding-top: 10px !important;
+}
+
+.food_types_image {
+    display: block;
+    width: 250px;
+    height: auto;
+}
+
+.food_menu_image {
+    display: block;
+    width: 400px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.food_image {
+    width: 100px;
+    height: 100px;
+}
+
+.profile_image {
+    display: block;
+    width: 250px;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 14.5%;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    height: 86%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 100px !important;
+    padding: 20px;
+    padding-top: 40%;
+    text-align: center;
+}
+
+.overlay_top {
+    position: absolute;
+    top: 2%;
+    left: 15%;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 70%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 40px !important;
+    padding: 20px;
+    text-align: center;
+}
+
+.overlay_down {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 40px;
+    padding: 20px;
+    text-align: center;
+}
+
+.overlay_up_rigth {
+    position: absolute;
+    top: 14.5%;
+    right: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 35%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+.overlay_up_left {
+    position: absolute;
+    top: 14.5%;
+    left: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 35%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+.containers:hover .overlay {
+    opacity: 1;
+}
+
+.containers:hover .overlay_down {
+    opacity: 1;
+}
+
+.containers:hover .overlay_up_left {
+    opacity: 1;
+}
+
+.containers:hover .overlay_up_rigth {
+    opacity: 1;
+}
+
+.profile_containers:hover .overlay_top {
+    opacity: 1;
 }

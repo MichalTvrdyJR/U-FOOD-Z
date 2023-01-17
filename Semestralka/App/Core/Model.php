@@ -191,4 +191,26 @@ abstract class Model implements \JsonSerializable
     {
         throw new \Exception("Attribute `$name` doesn't exist in the model " . get_called_class() . ".");
     }
+
+    /**
+     * Gets one model by primary key
+     * @param $email
+     * @return static|null
+     * @throws \Exception
+     */
+    static public function getOneByEmail($email): ?static
+    {
+        if ($email == null) return null;
+
+        self::connect();
+        try {
+            $sql = "SELECT * FROM `" . static::getTableName() . "` WHERE `" . static::getPkColumnName() . "`=?";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+            $stmt->execute([$email]);
+            return $stmt->fetch() ?: null;
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+        }
+    }
 }

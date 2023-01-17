@@ -8,10 +8,10 @@ use App\Controllers\Daily_menuController;
 <div class="column">
     <div class="center-text">
     <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {?>
-        <span class="text-dm" >Denné menu sú k dispozícií medzi <?= \App\Models\Time_interval::getOne(1)->getTime()?> a <?= \App\Models\Time_interval::getOne(2)->getTime()?> hodinou</span>
-        <a href="?c=daily_menu&a=edit_time" class="btn btn-warning ed-buttons">Edit</a>
+        <h1>Denné menu sú k dispozícií medzi <?= \App\Models\Time_interval::getOne(1)->getTime()?> a <?= \App\Models\Time_interval::getOne(2)->getTime()?> hodinou</h1>
+        <a class="zmenit_cas" href="?c=daily_menu&a=edit_time">Zmeniť časový interval</a>
     <?php }?>
-        <span class="text-dm" ><?= @$data['message'] ?></span>
+        <h1><?= @$data['message'] ?></h1>
     </div>
     <?php   unset($data['message']);
             //if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {
@@ -27,20 +27,22 @@ use App\Controllers\Daily_menuController;
                     if($day->getId() == $value->getDay()) {
                         if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin" && $isUsed === false) {
             ?>
-                            <div class="center-text">
-                                <span class="text-dm" ><?=$day->getName()?></span>
+                            <div>
+                                <span class="dni_text"><?=$day->getName()?></span>
                             </div>
                   <?php $isUsed = true;
                         }?>
         <div class="card my-3 food-type">
             <div class="card-body">
-                <span class="card-title">Menu <?=$cislo ?> : </span>
-                <span class="card-title"><?=$value->getName() ?></span>
-                <span class="cena"><?=$value->getPrice() ?>€</span>
+                <img src="public/images/<?= $value->getPicture()?>" alt="daily menu" class="food_menu_image">
+                <h2>Menu <?=$cislo ?> : <?=$value->getName()?></h2>
+                <h3>Zloženie: <?=$value->getIngredients()?></h3>
+                <h4><?=$value->getPrice() ?>€</h4>
             </div>
             <div>
-                <span class="zlozenie">Zloženie: <?=$value->getIngredients() ?></span>
                 <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
+                    <a href="?c=menu&a=edit&id=<?=$value->getId()?>" class="overlay_up_left food_types_title">Edit</a>
+                    <a href="?c=menu&a=delete&id=<?=$value->getId()?>" class="overlay_up_rigth food_types_title">Vymazať</a>
                     <a href="?c=daily_menu&a=edit&id=<?=$value->getId() ?>" class="btn btn-warning ed-buttons">Edit</a>
                     <a href="?c=daily_menu&a=delete&id=<?=$value->getId() ?>" class="btn btn-danger ed-buttons">Delete</a>
                 <?php } ?>
