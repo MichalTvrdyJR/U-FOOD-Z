@@ -8,6 +8,10 @@
             <h2 class="text-uppercase">__________________________</h2>
             <h2 class="text-uppercase">typ jedla</h2>
             <div>
+                <input value="<?=$data->getPicture()?>" type="file" name="img" class="form-control" id="img">
+                <label class="form-label" for="typeName"></label>
+            </div>
+            <div>
                 <input value="<?=$data->getType()?>" type="text" name="type" class="form-control" id="type" aria-describedby="Help" placeholder="Enter Type" required>
                 <label class="form-label" for="typeType">Názov</label>
             </div>

@@ -5,9 +5,11 @@
 
 <div class="column">
     <?php foreach ($data as $column) { ?>
+    <div class="container">
         <div class="card my-3 food-type">
             <div class="card-body">
                 <span class="card-title"><?=$column->getType() ?></span>
+                <img  class="invert" src="public/images/<?= $column->getPicture() ?>" href="?c=food&a=index&id=<?=$column->getId()?>" alt="">
                 <a href="?c=food&a=index&id=<?=$column->getId() ?>" class="btn btn-warning ed-buttons">Otvor</a>
                 <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
                 <a href="?c=menu&a=edit&id=<?=$column->getId() ?>" class="btn btn-warning ed-buttons">Edit</a>
@@ -15,6 +17,7 @@
                 <?php } ?>
             </div>
         </div>
+    </div>
     <?php } ?>
     <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
     <div class="card my-3 food-type">

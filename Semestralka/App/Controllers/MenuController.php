@@ -30,6 +30,16 @@ class MenuController extends AControllerBase
         if (isset($data["type"])) {
             $food = new Food_type();
             $food->setType($data["type"]);
+            if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                $imgName = time() . "_" . $_FILES['img']['name'];
+                $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                    $food->setPicture($imgName);
+                }
+            } else {
+                $imgName = "default_food_type.img";
+                $food->setPicture($imgName);
+            }
             $food->save();
             return $this->redirect("?c=menu");
         }
@@ -49,6 +59,16 @@ class MenuController extends AControllerBase
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
             if (isset($data["type"])) {
                 $food_type->setType($data["type"]);
+                if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                    $imgName = time() . "_" . $_FILES['img']['name'];
+                    $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                    if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                        $food_type->setPicture($imgName);
+                    }
+                } else {
+                    $imgName = "default_food_type.img";
+                    $food_type->setPicture($imgName);
+                }
                 $food_type->save();
                 return $this->redirect("?c=menu");
             }

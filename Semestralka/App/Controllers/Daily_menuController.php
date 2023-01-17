@@ -82,6 +82,16 @@ class Daily_menuController extends AControllerBase
                         $menu->setDay($dayID);
                         $menu->setIngredients($data["ingredients"]);
                         $menu->setPrice($data["price"]);
+                        if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                            $imgName = time() . "_" . $_FILES['img']['name'];
+                            $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                            if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                                $menu->setPicture($imgName);
+                            }
+                        } else {
+                            $imgName = "default_daily_menu.img";
+                            $menu->setPicture($imgName);
+                        }
                         $menu->save();
                         return $this->redirect("?c=daily_menu");
                     }
@@ -91,7 +101,7 @@ class Daily_menuController extends AControllerBase
             $message = "Nie ste autorizovaný pridávať veci";
         }
         $menu = new Daily_menu();
-        $data = ['nadpis' => "Pridanie", 'message' => $message, 'name' => $menu->getName(), 'day' => "", 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
+        $data = ['nadpis' => "Pridanie", 'message' => $message, 'picture' => $menu->getPicture(), 'name' => $menu->getName(), 'day' => "", 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
         return $this->html($data);
     }
 
@@ -118,6 +128,16 @@ class Daily_menuController extends AControllerBase
                         $menu->setName($data["name"]);
                         $menu->setIngredients($data["ingredients"]);
                         $menu->setPrice($data["price"]);
+                        if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                            $imgName = time() . "_" . $_FILES['img']['name'];
+                            $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                            if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                                $menu->setPicture($imgName);
+                            }
+                        } else {
+                            $imgName = "default_daily_menu.img";
+                            $menu->setPicture($imgName);
+                        }
                         $menu->save();
                         return $this->redirect("?c=daily_menu");
                     }

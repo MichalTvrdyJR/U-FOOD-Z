@@ -78,6 +78,16 @@ class ProfileController extends AControllerBase
                     $profile->setSurname($data["surname"]);
                     $profile->setEmail($data["email"]);
                     $profile->setPhone($data["phone"]);
+                    if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                        $imgName = time() . "_" . $_FILES['img']['name'];
+                        $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                        if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                            $profile->setPicture($imgName);
+                        }
+                    } else {
+                        $imgName = "default_profile.img";
+                        $profile->setPicture($imgName);
+                    }
                     $profile->save();
                     return $this->redirect("?c=profile");
                 }
@@ -87,7 +97,7 @@ class ProfileController extends AControllerBase
             $message = "Nemáte oprávnenie meniť údaje";
         }
 
-        $data = ['message' => $message, 'name' => $profile->getName(), 'surname' => $profile->getSurname(), 'email' => $profile->getEmail(), 'phone' => $profile->getPhone()];
+        $data = ['message' => $message, 'picture' => $profile->getPicture(), 'name' => $profile->getName(), 'surname' => $profile->getSurname(), 'email' => $profile->getEmail(), 'phone' => $profile->getPhone()];
         return $this->html($data);
     }
 

@@ -11,6 +11,7 @@ class Daily_menu extends Model
     protected int $day = -1;
     protected string $ingredients = "";
     protected float $price = 0;
+    protected string $picture = "";
 
     /**
      * @return int
@@ -82,5 +83,21 @@ class Daily_menu extends Model
     public function setPrice(float $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
     }
 }

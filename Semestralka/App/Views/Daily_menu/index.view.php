@@ -14,11 +14,12 @@ use App\Controllers\Daily_menuController;
         <span class="text-dm" ><?= @$data['message'] ?></span>
     </div>
     <?php   unset($data['message']);
-            if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {
-                $days = \App\Models\Days::getAll();
-            } else {
-                $days = \App\Models\Days::getOne(date('w'));
-            }
+            //if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {
+            $days = \App\Models\Days::getAll();
+            //} else {
+            //    $days = \App\Models\Days::getAll();
+                //$days = \App\Models\Days::getOne(date('w'));
+            //}
             foreach ($days as $day) {
                 $cislo = 1;
                 $isUsed = false;

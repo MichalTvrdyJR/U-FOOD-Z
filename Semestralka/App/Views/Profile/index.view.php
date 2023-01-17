@@ -14,6 +14,9 @@
             foreach ($data as $x => $value) { ?>
         <div class="card my-3 food-type">
             <div class="card-body">
+                <img id="profile" src="public/images/<?= $value->getPicture() ?>" class="invert" alt="Obrazok">
+            </div>
+            <div class="card-body">
                 <span class="card-title"><?=$value->getName() . ' ' . $value->getSurname() ?></span>
                 <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
                 <a href="?c=profile&a=delete&id=<?=$value->getId() ?>" class="btn btn-danger ed-buttons">Delete</a>

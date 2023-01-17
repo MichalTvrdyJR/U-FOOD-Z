@@ -18,10 +18,27 @@ window.onscroll = function() {
     prevScrollpos = currentScrollPos;
 }
 
-function valideMenu() {
-    let price = document.forms["form-menu"]["price"].value;
-    if (price <= 0) {
-        alert("Price must be higher than 0");
-        return false;
+function enable_submit_button() {
+
+}
+
+function add_to_cart() {
+
+}
+
+function check_passwords(str) {
+    if (str.length == 0) {
+        document.getElementById("skuskaNiecoho").innerHTML = "";
+        return;
+    } else {
+        var xml_http = new XMLHttpRequest();
+        xml_http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("skuskaNiecoho").innerHTML = this.responseText;
+            }
+        };
+        xml_http.open("GET", "");
+        xml_http.send();
     }
 }
+

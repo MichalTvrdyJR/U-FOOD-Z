@@ -11,6 +11,7 @@ class Food extends Model
     protected int $type;
     protected string $ingredients = "";
     protected float $price = 0;
+    protected string $picture = "";
 
     /**
      * @return float
@@ -82,5 +83,21 @@ class Food extends Model
     public function setIngredients(string $ingredients): void
     {
         $this->ingredients = $ingredients;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
     }
 }

@@ -53,6 +53,16 @@ class FoodController extends AControllerBase
                     $food->setType($food_type_id);
                     $food->setIngredients($data["ingredients"]);
                     $food->setPrice($data["price"]);
+                    if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                        $imgName = time() . "_" . $_FILES['img']['name'];
+                        $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                        if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                            $food->setPicture($imgName);
+                        }
+                    } else {
+                        $imgName = "default_menu.img";
+                        $food->setPicture($imgName);
+                    }
                     $food->save();
                     $url = "?c=food&a=index&id=" . $food_type_id;
                     return $this->redirect($url);
@@ -62,7 +72,7 @@ class FoodController extends AControllerBase
             $message = "Nie ste autorizovaný pridávať veci";
         }
         $menu = new Food();
-        $data = ['nadpis' => "Pridanie", 'message' => $message, 'name' => $menu->getName(), 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
+        $data = ['nadpis' => "Pridanie", 'message' => $message, 'picture' => $menu->getPicture(),  'name' => $menu->getName(), 'ingredients' => $menu->getIngredients(), 'price' => $menu->getPrice()];
         return $this->html($data);
     }
 
@@ -87,6 +97,16 @@ class FoodController extends AControllerBase
                     $food->setName($data["name"]);
                     $food->setIngredients($data["ingredients"]);
                     $food->setPrice($data["price"]);
+                    if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
+                        $imgName = time() . "_" . $_FILES['img']['name'];
+                        $imgPath = "C:\Users\micha\php_mysql\www\U-FOOD-Z\Semestralka\public\images" . DIRECTORY_SEPARATOR . $imgName;
+                        if (move_uploaded_file($_FILES['img']['tmp_name'], $imgPath)) {
+                            $food->setPicture($imgName);
+                        }
+                    } else {
+                        $imgName = "default_menu.img";
+                        $food->setPicture($imgName);
+                    }
                     $food->save();
                     $url = "?c=food&a=index&id=" . $food_type_id;
                     return $this->redirect($url);

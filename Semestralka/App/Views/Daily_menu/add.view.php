@@ -9,6 +9,10 @@
                 <?= @$data['message'] ?>
             </div>
             <div>
+                <input value="<?=@$data['picture']?>" type="file" name="img" class="form-control" id="img">
+                <label class="form-label" for="typeName"></label>
+            </div>
+            <div>
                 <input value="<?=@$data['name']?>" type="text" name="name" class="form-control" id="name" aria-describedby="Help" placeholder="Enter Name" required>
                 <label class="form-label" for="typeName">Názov</label>
             </div>

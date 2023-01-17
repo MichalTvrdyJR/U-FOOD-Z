@@ -9,19 +9,23 @@
                 <?= @$data['message'] ?>
             </div>
             <div>
-                <input value="<?=@$data['name']?>" type="text" name="name" class="form-control" id="name" aria-describedby="Help" placeholder="Enter Name" required>
-                <label class="form-label" for="typeName">Názov</label>
+                <input value="<?=@$data['picture']?>" type="file" name="img" class="form-control" id="img">
+                <label class="form-label" for="typeName"></label>
             </div>
             <div>
-                <input value="<?=@$data['surname']?>" type="text" name="surname" class="form-control" id="surname" aria-describedby="Help" placeholder="Enter Surname" required>
+                <input value="<?=@$data['name']?>" type="text" name="name" class="form-control" id="name" aria-describedby="Help" placeholder="Zadaj meno" required>
+                <label class="form-label" for="typeName">Meno</label>
+            </div>
+            <div>
+                <input value="<?=@$data['surname']?>" type="text" name="surname" class="form-control" id="surname" aria-describedby="Help" placeholder="Zadaj priezvisko" required>
                 <label class="form-label" for="typeSurname">Priezvisko</label>
             </div>
             <div>
-                <input value="<?=@$data['email']?>" type="text" name="email" class="form-control" id="email" aria-describedby="Help" placeholder="Enter Email" required>
+                <input value="<?=@$data['email']?>" type="email" name="email" class="form-control" id="email" aria-describedby="Help" placeholder="Zadaj email" required>
                 <label class="form-label" for="typeEmail">Email</label>
             </div>
             <div>
-                <input value="<?=@$data['phone']?>" type="text" name="phone" class="form-control" id="phone" aria-describedby="Help" placeholder="Enter Phone" required>
+                <input value="<?=@$data['phone']?>" type="tel" name="phone" class="form-control" id="phone" aria-describedby="Help" placeholder="Zadaj telefón" required>
                 <label class="form-label" for="typePhone">Telefónne číslo</label>
             </div>
             <button class="button-login btn-lg px-5" name="submit" type="submit">Save</button>

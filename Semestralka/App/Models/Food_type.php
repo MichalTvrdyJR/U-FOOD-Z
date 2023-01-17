@@ -8,6 +8,7 @@ class Food_type extends Model
 {
     protected int $id;
     protected string $type = "";
+    protected string $picture = "";
 
     /**
      * @return int
@@ -39,5 +40,21 @@ class Food_type extends Model
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
     }
 }
