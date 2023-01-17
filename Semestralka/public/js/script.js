@@ -18,14 +18,48 @@ window.onscroll = function() {
     prevScrollpos = currentScrollPos;
 }
 
-function enable_submit_button(value) {
-    if (value != "" && document.getElementById("email") != "") {
-        document.getElementById("submit-button").disabled = false;
+function enable_submit_button(value, type) {
+    if (type == 1) {
+        if (value != "" && document.getElementById("name") != "" && document.getElementById("surname") != "" && document.getElementById("email") != "" && document.getElementById("password") != "" && document.getElementById("check-password") != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
     }
-}
 
-function add_to_cart() {
+    if (type == 2) {
+        if (value != "" && document.getElementById("name") != "" && document.getElementById("ingredients") != "" && document.getElementById("day") != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
+    }
 
+    if (type == 3) {
+        if (value != "" && document.getElementById("od") != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
+    }
+
+    if (type == 4) {
+        if (value != "" && document.getElementById("name") != "" && document.getElementById("ingredients") != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
+    }
+
+    if (type == 5) {
+        if (value != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
+    }
+
+    if (type == 6) {
+        if (value != "" && document.getElementById("email") != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
+    }
+
+    if (type == 7) {
+        if (value != "" && document.getElementById("name") != "" && document.getElementById("surname") != "" && document.getElementById("email") != "") {
+            document.getElementById("submit-button").disabled = false;
+        }
+    }
 }
 
 function check_exists_email_registration(email) {

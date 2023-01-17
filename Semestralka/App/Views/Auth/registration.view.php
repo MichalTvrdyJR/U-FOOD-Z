@@ -31,10 +31,10 @@
                 <label id="password_check" class="form-label">Potvrďte heslo</label>
             </div>
             <div>
-                <input type="tel" id="phone" name="phone"  class="form-control" required/>
+                <input onkeyup="enable_submit_button(this.value, 1)" type="tel" id="phone" name="phone"  class="form-control" required/>
                 <label class="form-label" for="typePhone">Zadajte telegón</label>
             </div>
-            <button class="button-login btn-lg px-5" name="create" type="submit">Registrovať</button>
+            <button id="submit-button" class="button-login btn-lg px-5" name="create" type="submit" disabled>Registrovať</button>
         </form>
     </div>
 </div>

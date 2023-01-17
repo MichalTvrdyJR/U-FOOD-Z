@@ -13,10 +13,10 @@
                 <label class="form-label" for="od">Čas od</label>
             </div>
             <div>
-                <input value="<?=$data['do']?>" type="text" name="do" class="form-control" id="do" aria-describedby="Help" placeholder="Zadajte čas do" required>
+                <input onkeyup="enable_submit_button(this.value, 3)" value="<?=$data['do']?>" type="text" name="do" class="form-control" id="do" aria-describedby="Help" placeholder="Zadajte čas do" required>
                 <label class="form-label" for="do">Čas do</label>
             </div>
-            <button class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
+            <button id="submit-button" class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
         </form>
     </div>
 </div>

@@ -26,10 +26,10 @@
                 } else {
                     $value = @$data['price'];
                 }?>
-                <input value="<?=$value ?>" type="text" name="price" class="form-control" id="price" aria-describedby="Help" placeholder="Enter Price" required>
+                <input onkeyup="enable_submit_button(this.value, 4)" value="<?=$value ?>" type="text" name="price" class="form-control" id="price" aria-describedby="Help" placeholder="Enter Price" required>
                 <label class="form-label" for="typePrice">Cena</label>
             </div>
-            <button class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
+            <button id="submit-button" class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
         </form>
     </div>
 </div>

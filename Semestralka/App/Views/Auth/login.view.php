@@ -16,7 +16,7 @@
                 <label class="form-label" for="typeEmail">Enter your email</label>
             </div>
             <div>
-                <input onkeyup="enable_submit_button(this.value)" type="password" id="password" name="password"  class="form-control" required/>
+                <input onkeyup="enable_submit_button(this.value, 6)" type="password" id="password" name="password"  class="form-control" required/>
                 <label class="form-label" for="typePassword">Enter your password</label>
             </div>
             <button id="submit-button" class="button-login btn-lg px-5" name="submit" type="submit" disabled>Login</button>

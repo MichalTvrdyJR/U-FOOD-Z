@@ -12,10 +12,10 @@
                 <label class="form-label" for="typeName"></label>
             </div>
             <div>
-                <input value="<?=$data->getType()?>" type="text" name="type" class="form-control" id="type" aria-describedby="Help" placeholder="Enter Type" required>
+                <input onkeyup="enable_submit_button(this.value, 5)" value="<?=$data->getType()?>" type="text" name="type" class="form-control" id="type" aria-describedby="Help" placeholder="Enter Type" required>
                 <label class="form-label" for="typeType">Názov</label>
             </div>
-            <button class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
+            <button id="submit-button" class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
         </form>
     </div>
 </div>

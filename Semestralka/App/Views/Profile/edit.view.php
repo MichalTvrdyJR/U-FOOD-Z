@@ -25,10 +25,10 @@
                 <label id="email_check" class="form-label">Email</label>
             </div>
             <div>
-                <input value="<?=@$data['phone']?>" type="tel" name="phone" class="form-control" id="phone" aria-describedby="Help" placeholder="Zadaj telefón" required>
+                <input onkeyup="enable_submit_button(this.value, 7)" value="<?=@$data['phone']?>" type="tel" name="phone" class="form-control" id="phone" aria-describedby="Help" placeholder="Zadaj telefón" required>
                 <label class="form-label" for="typePhone">Telefónne číslo</label>
             </div>
-            <button class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
+            <button id="submit-button" class="button-login btn-lg px-5" name="submit" type="submit">Save</button>
         </form>
     </div>
 </div>
