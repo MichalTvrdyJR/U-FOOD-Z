@@ -103,12 +103,31 @@ class AuthController extends AControllerBase
      * @throws \Exception
      */
 
-    public function emailExists() : Response {
-        $email = $_REQUEST["email"];
+    public function emailCheck() : Response {
+        $email = $_REQUEST["emailCheck"];
         $exists = Profile::getOneByEmail($email);
         $output = false;
 
         if ($exists) {
+            $output = true;
+        }
+
+        return $this->json($output);
+    }
+
+    /**
+     * @return Response
+     * @throws \Exception
+     */
+
+    public function passwordCheck() : Response {
+        $password = $_REQUEST["passwordCheck"];
+        $id = explode("-", $password);
+        $first = $id[0];
+        $second = $id[1];
+        $output = false;
+
+        if ($first === $second) {
             $output = true;
         }
 

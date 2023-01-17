@@ -4,7 +4,7 @@
     <div class="card card-colors card-signin">
         <form class="card-body p-5 text-center form-signin" method="post">
             <h2 class="text-uppercase">__________________________</h2>
-            <h2 class="text-uppercase"><?= @$data['nadpis'] ?> daily menu</h2>
+            <h2 class="text-uppercase"><?= @$data['nadpis'] ?> denné menu</h2>
             <div class="text-center text-danger mb-3">
                 <?= @$data['message'] ?>
             </div>
@@ -17,8 +17,8 @@
                 <label class="form-label" for="typeName">Názov</label>
             </div>
             <div>
-                <input value="<?=@$data['day']?>" type="text" name="day" class="form-control" id="day" aria-describedby="Help" placeholder="Enter Day" required>
-                <label class="form-label" for="typeDay">Deň</label>
+                <input onkeyup="check_exists_day(this.value)" value="<?=@$data['day']?>" type="text" name="day" class="form-control" id="day" aria-describedby="Help" placeholder="Enter Day" required>
+                <label id="day_check" class="form-label">Deň</label>
             </div>
             <div>
                 <input value="<?=@$data['ingredients']?>" type="text" name="ingredients" class="form-control" id="ingredients" aria-describedby="Help" placeholder="Enter Ingredients" required>

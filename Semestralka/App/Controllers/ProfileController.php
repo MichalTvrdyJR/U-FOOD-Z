@@ -119,4 +119,21 @@ class ProfileController extends AControllerBase
         }
         return  $this->html();
     }
+
+    /**
+     * @return Response
+     * @throws \Exception
+     */
+
+    public function emailCheck() : Response {
+        $email = $_REQUEST["emailCheck"];
+        $exists = Profile::getOneByEmail($email);
+        $output = false;
+
+        if ($exists) {
+            $output = true;
+        }
+
+        return $this->json($output);
+    }
 }

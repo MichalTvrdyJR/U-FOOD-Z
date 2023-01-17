@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="center-text">
-        <span class="text-dm" ><?= @$data['message'] ?></span>
+        <h1><?= @$data['message'] ?></h1>
     </div>
     <?php   unset($data['message']);
             if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") {

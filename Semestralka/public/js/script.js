@@ -18,43 +18,60 @@ window.onscroll = function() {
     prevScrollpos = currentScrollPos;
 }
 
-function enable_submit_button() {
-
+function enable_submit_button(value) {
+    if (value != "" && document.getElementById("email") != "") {
+        document.getElementById("submit-button").disabled = false;
+    }
 }
 
 function add_to_cart() {
 
 }
 
-function check_passwords(str) {
-    if (str.length == 0) {
-        document.getElementById("skuskaNiecoho").innerHTML = "";
-        return;
-    } else {
-        var xml_http = new XMLHttpRequest();
-        xml_http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("skuskaNiecoho").innerHTML = this.responseText;
-            }
-        };
-        xml_http.open("GET", "");
-        xml_http.send();
-    }
-}
-
 function check_exists_email_registration(email) {
     var xml_http = new XMLHttpRequest();
     //"?c=auth&a=registration"
-    xml_http.open("GET", "?c=auth&a=registration&email=" + email, true);
+    xml_http.open("GET", "?c=auth&a=emailCheck&emailCheck=" + email, true);
     xml_http.send();
     xml_http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            if (this.response === true) {
+            if (this.response === "true") {
                 document.getElementById("email_check").innerHTML = "Daný email už existuje";
             } else {
-                document.getElementById("email_check").innerHTML = this.response;
+                document.getElementById("email_check").innerHTML = "Zadajte Email";
             }
         }
     }
 }
 
+function check_same_passwords(password) {
+    var xml_http = new XMLHttpRequest();
+    url = "?c=auth&a=passwordCheck&passwordCheck=" + password + "-" + document.getElementById("password").value;
+    xml_http.open("GET", url, true);
+    xml_http.send();
+    xml_http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.response === "false") {
+                document.getElementById("password_check").innerHTML = "Heslá sa nezhodujú";
+            } else {
+                document.getElementById("password_check").innerHTML = "Potvrďte heslo";
+            }
+        }
+    }
+}
+
+function check_exists_day(day) {
+    var xml_http = new XMLHttpRequest();
+    //"?c=auth&a=registration"
+    xml_http.open("GET", "?c=daily_menu&a=dayCheck&dayCheck=" + day, true);
+    xml_http.send();
+    xml_http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.response === "false") {
+                document.getElementById("day_check").innerHTML = "Daný deň neexistuje";
+            } else {
+                document.getElementById("day_check").innerHTML = "Deň";
+            }
+        }
+    }
+}

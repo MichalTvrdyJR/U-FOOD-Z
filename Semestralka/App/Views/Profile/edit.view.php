@@ -21,8 +21,8 @@
                 <label class="form-label" for="typeSurname">Priezvisko</label>
             </div>
             <div>
-                <input value="<?=@$data['email']?>" type="email" name="email" class="form-control" id="email" aria-describedby="Help" placeholder="Zadaj email" required>
-                <label class="form-label" for="typeEmail">Email</label>
+                <input onkeyup="check_exists_email_registration(this.value)" value="<?=@$data['email']?>" type="email" name="email" class="form-control" id="email" aria-describedby="Help" placeholder="Zadaj email" required>
+                <label id="email_check" class="form-label">Email</label>
             </div>
             <div>
                 <input value="<?=@$data['phone']?>" type="tel" name="phone" class="form-control" id="phone" aria-describedby="Help" placeholder="Zadaj telefón" required>

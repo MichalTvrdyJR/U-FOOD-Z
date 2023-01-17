@@ -204,10 +204,32 @@ abstract class Model implements \JsonSerializable
 
         self::connect();
         try {
-            $sql = "SELECT * FROM `" . static::getTableName() . "` WHERE `" . static::getPkColumnName() . "`=?";
+            $sql = "SELECT * FROM `" . static::getTableName() . "` WHERE `" . "email" . "`=?";
             $stmt = self::$connection->prepare($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
             $stmt->execute([$email]);
+            return $stmt->fetch() ?: null;
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+        }
+    }
+
+    /**
+     * Gets one model by primary key
+     * @param $day
+     * @return static|null
+     * @throws \Exception
+     */
+    static public function getOneByDayName($day): ?static
+    {
+        if ($day == null) return null;
+
+        self::connect();
+        try {
+            $sql = "SELECT * FROM `" . static::getTableName() . "` WHERE `" . "name" . "`=?";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+            $stmt->execute([$day]);
             return $stmt->fetch() ?: null;
         } catch (PDOException $e) {
             throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);

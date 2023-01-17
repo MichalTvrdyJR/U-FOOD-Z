@@ -32,7 +32,8 @@ use App\Controllers\Daily_menuController;
                             </div>
                   <?php $isUsed = true;
                         }?>
-        <div class="card my-3 food-type">
+    <div class="daily_menu_containers">
+        <div class="card food-type">
             <div class="card-body">
                 <img src="public/images/<?= $value->getPicture()?>" alt="daily menu" class="food_menu_image">
                 <h2>Menu <?=$cislo ?> : <?=$value->getName()?></h2>
@@ -41,13 +42,12 @@ use App\Controllers\Daily_menuController;
             </div>
             <div>
                 <?php if ($auth->isLogged() && $auth->getLoggedUserName() == "Admin") { ?>
-                    <a href="?c=menu&a=edit&id=<?=$value->getId()?>" class="overlay_up_left food_types_title">Edit</a>
-                    <a href="?c=menu&a=delete&id=<?=$value->getId()?>" class="overlay_up_rigth food_types_title">Vymazať</a>
-                    <a href="?c=daily_menu&a=edit&id=<?=$value->getId() ?>" class="btn btn-warning ed-buttons">Edit</a>
-                    <a href="?c=daily_menu&a=delete&id=<?=$value->getId() ?>" class="btn btn-danger ed-buttons">Delete</a>
+                    <a href="?c=daily_menu&a=edit&id=<?=$value->getId() ?>" class="overlay_botton_left food_types_title">Edit</a>
+                    <a href="?c=daily_menu&a=delete&id=<?=$value->getId() ?>" class="overlay_botton_rigth food_types_title">Delete</a>
                 <?php } ?>
             </div>
         </div>
+    </div>
     <?php           $cislo = $cislo + 1;
                     }
                 }

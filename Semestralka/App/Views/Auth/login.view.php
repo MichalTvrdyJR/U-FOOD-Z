@@ -16,10 +16,10 @@
                 <label class="form-label" for="typeEmail">Enter your email</label>
             </div>
             <div>
-                <input type="password" id="password" name="password"  class="form-control" required/>
+                <input onkeyup="enable_submit_button(this.value)" type="password" id="password" name="password"  class="form-control" required/>
                 <label class="form-label" for="typePassword">Enter your password</label>
             </div>
-            <button class="button-login btn-lg px-5" name="submit" type="submit">Login</button>
+            <button id="submit-button" class="button-login btn-lg px-5" name="submit" type="submit" disabled>Login</button>
         </form>
         <div>
             <p class="center-text">Don't have an account? <a href="?c=auth&a=registration" class="dark-text fw-bold">Sign Up</a>

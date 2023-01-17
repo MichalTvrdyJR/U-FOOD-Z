@@ -117,7 +117,7 @@ class Daily_menuController extends AControllerBase
 
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
             if (isset($data["day"]) && isset($data["name"]) && isset($data["ingredients"]) && isset($data["price"])) {
-                if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] > 0) {
+                if (filter_var($data["price"], FILTER_VALIDATE_FLOAT) === false || $data["price"] <= 0) {
                     $message = "Zle zadaná suma";
                 } else {
                     $dayID = $this->validDay($data["day"]);
@@ -201,5 +201,22 @@ class Daily_menuController extends AControllerBase
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return Response
+     * @throws \Exception
+     */
+
+    public function dayCheck() : Response {
+        $day = $_REQUEST["dayCheck"];
+        $exists = Days::getOneByDayName($day);
+        $output = false;
+
+        if ($exists) {
+            $output = true;
+        }
+
+        return $this->json($output);
     }
 }

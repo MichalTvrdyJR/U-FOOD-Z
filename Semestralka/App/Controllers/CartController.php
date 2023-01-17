@@ -23,7 +23,8 @@ class CartController extends AControllerBase
     public function index(): Response
     {
         $data = Cart::getAll();
-        $n_data = ['message' => ""];
+        $n_data = ['message' => "", 'price' => 0];
+        $suma = 0;
         if ($this->app->getAuth()->isLogged() && $this->app->getAuth()->getLoggedUserName() == "Admin") {
             $n_data['message'] = "For your account is cart not able";
         } else if ($this->app->getAuth()->isLogged()){
@@ -32,6 +33,7 @@ class CartController extends AControllerBase
                 if ($column->getProfile() == $this->app->getAuth()->getLoggedUserId()) {
                     array_push($n_data, $column);
                     $cislo = $cislo + 1;
+                    $suma = $suma + (Food::getOne($column->getFood())->getPrice() * $column->getCount());
                 }
             }
             if ($cislo == 0) {
@@ -40,7 +42,7 @@ class CartController extends AControllerBase
         } else {
             $n_data['message'] = "To start shopping you need to be log in";
         }
-
+        $n_data['price'] = $suma;
         return $this->html($n_data);
     }
 
